@@ -16,8 +16,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ExcelReader {
-    
-    public List<List<Object>> readExcel() throws IOException{
+
+    public List<List<Object>> readExcel() throws IOException {
         File file = new File("D:\\ExcelTemplates\\Book1.xlsx");
         FileInputStream fis = null;
         List<List<Object>> rows = new ArrayList<>();
@@ -27,11 +27,11 @@ public class ExcelReader {
             wb = new XSSFWorkbook(fis);
             XSSFSheet sheet = wb.getSheetAt(0);
             Iterator<Row> itr = sheet.rowIterator();
-            while(itr.hasNext()) {
+            while (itr.hasNext()) {
                 List<Object> cells = new ArrayList<>();
                 Row row = itr.next();
                 Iterator<Cell> celliterator = row.cellIterator();
-                while(celliterator.hasNext()) {
+                while (celliterator.hasNext()) {
                     Cell cell = celliterator.next();
                     switch (cell.getCellType()) {
                     case STRING:
@@ -54,16 +54,14 @@ public class ExcelReader {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }finally {
-            if(fis != null){
+        } finally {
+            if (fis != null) {
                 fis.close();
             }
-            if(wb != null) {
-                
+            if (wb != null) {
+                wb.close();
             }
         }
         return rows;
-        
     }
-
 }
